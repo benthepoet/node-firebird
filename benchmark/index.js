@@ -21,6 +21,7 @@ suite
     const oldWriter = new serialize.XdrWriter(1);
     values.forEach(i => oldWriter.addUInt(i));  
   })
+  .on('error', function (e) { console.log(e); })
   .on('cycle', function(event) {
     console.log(String(event.target));
   })

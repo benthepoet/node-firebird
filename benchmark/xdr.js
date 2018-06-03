@@ -1,4 +1,10 @@
-const XDR_INT_SIZE = 4;
+const XdrTypes = {
+    XDR_INT: 0,
+}
+
+const XdrTypeSizes = {
+    XDR_INT: 4
+};
 
 class XdrWriter {
     constructor() {
@@ -7,23 +13,25 @@ class XdrWriter {
     }
     
     addInt(value) {
-        this._values.push([0, value]);
-        this._totalLength += XDR_INT_SIZE;
+        this._values.push([XdrTypes.XDR_INT, value]);
+        this._totalLength += XdrTypeSizes.XDR_INT;
     }
     
     toBuffer() {
         const buffer = Buffer.alloc(this._totalLength);
         
         let offset = 0;
-        let l = this._values.length;
         
-        while (l--) {
-            const value = this._values[l];
+        let i = -1;
+        const j = this._values.length;
+        
+        while (++i < j) {
+            const [type, value] = this._values[i];
             
-            switch (value[0]) {
-                case 0:
-                    buffer.writeUInt32BE(value[1], offset);
-                    offset += XDR_INT_SIZE;
+            switch (type) {
+                case XdrTypes.XDR_INT:
+                    buffer.writeUInt32BE(value, offset);
+                    offset += XdrTypeSizes.XDR_INT;
             }
         }
         
