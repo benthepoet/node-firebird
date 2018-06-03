@@ -35,6 +35,7 @@
         "long": "^2.2.5"
     },
     "devDependencies": {
+        "benchmark": "^2.1.4",
         "coveralls": "^3.0.1",
         "mocha": "^5.2.0",
         "nyc": "^11.8.0"
