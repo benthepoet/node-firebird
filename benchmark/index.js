@@ -19,7 +19,8 @@ suite
   })
   .add('Old Writer', function () {
     const oldWriter = new serialize.XdrWriter(1);
-    values.forEach(i => oldWriter.addUInt(i));  
+    values.forEach(i => oldWriter.addUInt(i)); 
+    oldWriter.getData();
   })
   .on('error', function (e) { console.log(e); })
   .on('cycle', function(event) {
